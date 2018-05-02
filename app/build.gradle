@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+
+//    FileTree tree = fileTree(dir: "src/main/java") include("**/*.java")
+//    tree.each { File file ->
+//        println "======" + file.name
+//    }
+
+    compileSdkVersion 23
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        applicationId "com.coolweather.app"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "\"http://test.example.com/api.do?xcase=getNews\""
+            buildConfigField "int", "LOG_LEVEL", "1"
+        }
+        release {
+            buildConfigField "String", "API_URL", "\"http://www.example.com/api.do?xcase=getNews\""
+            buildConfigField "int", "LOG_LEVEL", "6"
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    def fileName = outputFile.name.replace(".apk", "-${variant.versionName}.apk")
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+}
+
+//task hello << {
+//    println "-----------------------------------------------"
+//}
+//
+//tasks.whenTaskAdded { theTask ->
+//    if (theTask.name.equals("packageRelease")) {
+//        theTask.dependsOn "hello"
+//    }
+//}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+}

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CoolWeather</string>
+    <string name="country">中国</string>
+    <string name="loading">正在加载...</string>
+    <string name="loading_fail">加载失败</string>
+    <string name="synching">同步中...</string>
+    <string name="synching_fail">同步失败</string>
+    <string name="push_tips">今天?同步</string>
+    <string name="menu_settings">设置</string>
+    <string name="log_level_desc">日志打印级别：?</string>
+</resources>
